@@ -45,24 +45,182 @@ TidyML is a new markup language designed to be:
 - Sharing structured data with both humans and machines.
 - Embedding human-readable settings that won’t break on a missing comma or indentation.
 
-
 TidyML is in early development, but aims to become a practical alternative for everyday config and structured data tasks — simple, tidy, and safe by default.
 
+###  Quick Tutorial
 
-## TidyML Syntax
+This tutorial introduces TidyML through a series of feature-focused examples. Each section includes a `.tml` snippet and a plain explanation. TidyML is a lightweight, human-readable markup language designed to be as readable as YAML, as structured as XML, and as safe and simple as JSON.
 
-TidyML uses a minimalistic syntax that's easy to understand.
+#### Basic Data Types
+    # TidyML - Basic Data Types
+    app {
+        name = "TidyML Demo"
+        version = 1.2
+        active = true
+        max_users = 1000
+        release_date = "2024-06-22"
+        description = null
+    }
 
-    # A sample user record
+-   Strings can be quoted or left unquoted if safe.    
+-   Numbers are typed automatically as integers or floats.    
+-   Booleans must be lowercase: `true` or `false`.    
+-   Null is explicitly written as `null`.    
+-   No commas or quotes around keys.    
+-   Comments start with `#`.
     
+#### Nested Objects
+
+    # TidyML - Nested Objects    
     user {
         name = "Alice"
-        age = 30
-        active = true
-        roles = ["admin", "editor"]
-    
+        contact {
+            email = "alice@example.com"
+            phone = "+31-123456789"
+        }
         address {
+            street = "Main Street 123"
             city = "Amsterdam"
             zip = "1011AB"
         }
     }
+-   Use `{}` blocks to represent nested structures.    
+-   Nesting is clear and does not require indentation rules.    
+-   Good for representing relationships like JSON or XML.
+    
+
+####  Lists
+
+    # TidyML - Lists    
+    project {
+        name = "OpenRoadSim"
+        tags = ["simulation", "python", "automotive"]
+        contributors = [
+            {
+                name = "Gokul"
+                role = "creator"
+            },
+            {
+                name = "Jane"
+                role = "contributor"
+            }
+        ]
+    }
+
+-   Lists use square brackets `[]`.    
+-   Lists can contain scalars or nested objects.    
+-   Each item can optionally end with a comma.
+
+#### Comments and Trailing Commas
+    # TidyML - Comments and Trailing Commas
+    
+        settings {
+            mode = "production"  # environment mode
+            debug = false
+            features = [
+                "logging",
+                "monitoring",
+                "alerts",  # trailing comma allowed
+            ]
+        }
+
+-   Inline and full-line comments are allowed using `#`.    
+-   Trailing commas in lists or blocks are accepted.
+    
+####  Multiline Strings
+
+    # TidyML - Multiline Strings
+    
+        email_template {
+            subject = "Welcome to TidyML"
+            body = """
+                Hello {{name}},
+        
+                Thank you for joining the TidyML community.
+        
+                Regards,
+                TidyML Team
+            """
+        }
+
+-   Use triple quotes `"""` for multiline strings.    
+-   Preserves line breaks and indentation.    
+-   Useful for emails, documentation, scripts, etc.
+    
+#### Explicit Typing  
+
+    # TidyML - Explicit Typing (optional concept)
+    
+    database {
+        host = "localhost"
+        port: int = 5432
+        ssl: bool = true
+        timeout: float = 30.5
+    }
+            
+-   Add `: type` hints to enforce specific data types.    
+-   Supported types: int, float, bool, string (default).    
+-   Typing is optional but useful for validation.
+
+
+#### Config-Style Real-World Example   
+
+    # TidyML - Real-World Config Structure
+    
+    server {
+        host = "0.0.0.0"
+        port = 8080
+        log_level = "info"
+    }
+    
+    auth {
+        enabled = true
+        token_expiry = "2h"
+        providers = ["google", "github"]
+    }
+
+-   Realistic structure for applications or APIs.    
+-   Logical separation of config sections.    
+-   Can replace YAML/INI with safer, cleaner format.
+    
+#### Edge Cases
+
+    # TidyML - Edge Cases
+    
+    cases {
+        empty_string = ""
+        quoted_number = "12345"
+        special_chars = "@value$%&"
+        tricky_key = "value with spaces"
+        trailing_list = [
+            "one",
+            "two",
+            "three",
+        ]
+    }
+
+
+-   Strings with special characters should be quoted.    
+-   Values with spaces must be quoted.    
+-   Trailing commas don’t cause parse failures.
+    
+#### Comparison with Other Formats
+
+    # TidyML - Comparison Examples
+    
+    example {
+        key = "value"
+        nested {
+            item = 123
+        }
+        list = ["a", "b", "c"]
+        # In YAML this would require proper indentation
+        # In JSON this would need quotes and commas
+    }
+
+-   TidyML provides the clarity of YAML without indentation sensitivity.    
+-   It offers JSON’s simplicity with added readability and comments.    
+-   Unlike XML, it avoids verbose tags and boilerplate.
+    
+### Conclusion
+This completes the basic TidyML tutorial covering all major features. You can now use these examples to build real-world configurations or structured data files that are easy to read, write, and maintain.
