@@ -1,0 +1,79 @@
+TidyML Parser – Project Backlog
+===============================
+
+1. Core API Design
+------------------
+
+Basic Functions:
+- Implement `parse(text)` to parse TidyML from a string.
+- Add alias `loads(text)` for `parse()`.
+- Add `load(filepath)` to read and parse from file.
+- Define `TidyMLError` for handling parse errors.
+
+Advanced Options:
+- Extend `parse()` with optional arguments: `validate` and `schema`.
+- Add custom exceptions like `ValidationError` and `ParserError`.
+
+2. CLI Tool (tidyml)
+---------------------
+
+Core Commands:
+- tidyml validate file.tml – check syntax and optionally validate with schema.
+- tidyml convert file.tml --to json – convert TidyML to JSON.
+- tidyml format file.tml --inplace – clean up and format TML.
+- tidyml lint file.tml – detect formatting or structural issues.
+
+Optional Flags:
+- --schema schema.json – path to validation schema.
+- --debug – enable verbose logs or tracing.
+
+3. Data Conversion and Export
+------------------------------
+
+- Implement to_dict(obj) to convert internal structure to Python dict.
+- Add to_json(obj) to export data as JSON string.
+- Optionally add to_yaml(obj) to export data to YAML format.
+- Implement from_dict(data) to convert dict back to .tml.
+
+4. Parser Logic
+----------------
+
+- Build a line-based parser or recursive descent implementation.
+- Support:
+  - Key-value pairs: key = value
+  - Nested blocks with { } structure
+  - Lists using [item1, item2]
+  - Multiline strings using triple quotes
+  - Inline and full-line comments with #
+  - Optional trailing commas
+
+5. Schema Validation (optional feature)
+----------------------------------------
+
+- Design a minimal schema definition format (inline or JSON-like).
+- Support type validation: int, float, bool, string.
+- Add validation rules: required fields, default values, enum.
+- Integrate schema checks into parse(..., validate=True).
+
+6. Packaging and Distribution
+------------------------------
+
+- Ensure the project installs via pip install .
+- Add pyproject.toml with proper metadata.
+- Define __version__ in the main module.
+- Include usage examples in examples/ folder.
+- Add unit tests under tests/ using pytest.
+- Create distribution files using python -m build.
+- Publish to PyPI using twine.
+
+7. Cross-Language and Long-Term Goals
+--------------------------------------
+
+- Define the official grammar for TidyML (EBNF).
+- Build a Rust-native parser for performance and bindings.
+- Create ports or bindings for:
+  - JavaScript (Node.js)
+  - Go
+  - Java
+  - C++
+- Ensure test suite compatibility across all implementations.
