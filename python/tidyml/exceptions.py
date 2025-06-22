@@ -1,0 +1,2 @@
+class TidyMLError(Exception):
+    pass
